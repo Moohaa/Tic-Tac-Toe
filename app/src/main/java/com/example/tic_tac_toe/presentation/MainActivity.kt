@@ -1,16 +1,21 @@
-package com.example.tic_tac_toe
+package com.example.tic_tac_toe.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.tic_tac_toe.ui.theme.Tic_Tac_ToeTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.tic_tac_toe.presentation.screens.*
+import com.example.tic_tac_toe.presentation.theme.Tic_Tac_ToeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +27,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    val navController = rememberNavController()
+                    NavHost(navController, startDestination = Screen.OptionScreen.route) {
+                        composable(Screen.OptionScreen.route){ OptionsScreen(navController)}
+                        composable(Screen.SplashScreen.route){ SplashScreen()}
+                        composable(Screen.GameScreen.route){ GameScreen()}
+                        composable(Screen.GetUserNameScreen.route){ GetUserNameScreen()}
+                        composable(Screen.InviteOpponent.route){ InviteOpponentScreen() }
+                    }
                 }
             }
         }
@@ -31,7 +43,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+    Text(
+        text = "Hello $name!",
+    )
 }
 
 @Preview(showBackground = true)

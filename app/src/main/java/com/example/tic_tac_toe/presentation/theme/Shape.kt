@@ -1,4 +1,4 @@
-package com.example.tic_tac_toe.ui.theme
+package com.example.tic_tac_toe.presentation.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

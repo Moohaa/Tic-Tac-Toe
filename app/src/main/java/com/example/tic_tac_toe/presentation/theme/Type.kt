@@ -1,4 +1,4 @@
-package com.example.tic_tac_toe.ui.theme
+package com.example.tic_tac_toe.presentation.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
