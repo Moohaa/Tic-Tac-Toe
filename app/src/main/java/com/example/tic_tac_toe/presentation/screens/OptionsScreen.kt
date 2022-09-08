@@ -24,11 +24,11 @@ fun OptionsScreen(
             verticalArrangement = Arrangement.Center
         ) {
             OptionCard("Play Online", navigate = {
-                navController.navigate(Screen.GetUserNameScreen.route)
+                navController.navigate(Screen.LoginScreen.route)
             })
             OptionCard("Play offline",
                 navigate = {
-                    navController.navigate(Screen.GetUserNameScreen.route)
+                    navController.navigate(Screen.LoginScreen.route)
                 })
         }
     }

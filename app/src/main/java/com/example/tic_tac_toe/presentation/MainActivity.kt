@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -32,7 +31,8 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.OptionScreen.route){ OptionsScreen(navController)}
                         composable(Screen.SplashScreen.route){ SplashScreen()}
                         composable(Screen.GameScreen.route){ GameScreen()}
-                        composable(Screen.GetUserNameScreen.route){ GetUserNameScreen()}
+                        composable(Screen.LoginScreen.route){ Login(navController = navController)}
+                        composable(Screen.SignUpScreen.route){ SignUp(navController = navController) }
                         composable(Screen.InviteOpponent.route){ InviteOpponentScreen() }
                     }
                 }
