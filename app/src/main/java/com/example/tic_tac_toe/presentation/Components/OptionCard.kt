@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
@@ -23,8 +24,8 @@ fun OptionCard(
     Box(
         modifier = Modifier.fillMaxWidth()
         .padding(20.dp,5.dp)
-        .background(MaterialTheme.colors.secondary)
-        .clip(RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(10.dp))
+            .background(MaterialTheme.colors.primary)
         .clickable {
             navigate()
         },
@@ -33,7 +34,8 @@ fun OptionCard(
         Text(
             text = text,
             modifier = Modifier.padding(20.dp),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = Color.White
         )
     }
 }
