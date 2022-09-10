@@ -15,7 +15,8 @@ import com.example.tic_tac_toe.R
 
 @Composable
 fun OnlineUserCard(
-    userName :String
+    userName :String,
+    navigateTogame : ()->Unit
 ){
     Row(modifier = Modifier
         .fillMaxWidth()
@@ -39,6 +40,8 @@ fun OnlineUserCard(
                 .clip(RoundedCornerShape(10.dp))
                 .padding(7.dp),
             onClick = {
+                // Todo :To waite for the opponent to accept the invitation
+                navigateTogame()
         }){
             Text(text = "Invite")
         }

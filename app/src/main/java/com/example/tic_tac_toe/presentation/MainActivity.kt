@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.GameScreen.route){ GameScreen()}
                         composable(Screen.LoginScreen.route){ Login(navController = navController)}
                         composable(Screen.SignUpScreen.route){ SignUp(navController = navController) }
-                        composable(Screen.InviteOpponent.route){ InviteOpponentScreen() }
+                        composable(Screen.InviteOpponent.route){ InviteOpponentScreen(navController=navController) }
                     }
                 }
             }

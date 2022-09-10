@@ -11,11 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.tic_tac_toe.R
 import com.example.tic_tac_toe.presentation.Components.OnlineUserCard
+import com.example.tic_tac_toe.presentation.Screen
 
 @Composable
-fun InviteOpponentScreen(){
+fun InviteOpponentScreen(
+    navController: NavController
+){
     Column(modifier = Modifier.fillMaxSize()){
         Row(
             modifier = Modifier
@@ -30,7 +34,7 @@ fun InviteOpponentScreen(){
                     painter = painterResource(id= R.drawable.ic_baseline_notifications_none_24 ), contentDescription = "notification button")
             }
         }
-        val onlineUsers= listOf<String>("moha","boha","noha","kop","hom")
+        val onlineUsers= listOf<String>("moha","boha","noha","kop","hom","moha","boha","noha","kop","hom")
 
         Divider()
 
@@ -38,10 +42,10 @@ fun InviteOpponentScreen(){
             modifier = Modifier.fillMaxSize(),
         ){
             items(onlineUsers){ c->
-                OnlineUserCard(c)
+                OnlineUserCard(c , navigateTogame = {
+                    navController.navigate(Screen.GameScreen.route)
+                })
             }
         }
-
-
     }
 }
