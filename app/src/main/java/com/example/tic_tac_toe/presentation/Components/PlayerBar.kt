@@ -25,6 +25,7 @@ fun PlayerBar(
         verticalAlignment = Alignment.CenterVertically
     ){
         Icon(
+            tint =Color.Green,
             modifier = Modifier
                 .padding(15.dp, 5.dp, 5.dp, 10.dp)
                 .size(45.dp)
@@ -34,7 +35,6 @@ fun PlayerBar(
         )
         Column(){
             Text(text = userName,
-                color = Color.Green
             )
             // Todo : counter down
             Box(

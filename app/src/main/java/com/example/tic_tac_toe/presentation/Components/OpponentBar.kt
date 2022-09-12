@@ -27,13 +27,11 @@ fun OpponentBar(
         Column(){
             Text(
                 text = userName,
-                color = Color.Red
             )
-            Text("",
-                color = Color.White
-            )
+            Text("")
         }
         Icon(
+            tint=Color.Red,
             modifier = Modifier
                 .padding(5.dp, 5.dp, 15.dp, 10.dp)
                 .clip(RoundedCornerShape(50))
