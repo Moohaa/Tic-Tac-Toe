@@ -20,14 +20,23 @@ import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tic_tac_toe.R
+import com.example.tic_tac_toe.logic.OfflineGame
 import com.example.tic_tac_toe.presentation.Components.Cell
 import com.example.tic_tac_toe.presentation.Components.OpponentBar
 import com.example.tic_tac_toe.presentation.Components.PlayerBar
 import com.example.tic_tac_toe.presentation.Components.ScoreBoard
+import com.example.tic_tac_toe.presentation.ViewModels.GameViewModel
 
 @Composable
-fun GameScreen(){
+fun GameScreen(
+    viewModel: GameViewModel = hiltViewModel()
+){
+
+
     Column(
         modifier = Modifier.fillMaxSize(),
     ){
@@ -37,47 +46,115 @@ fun GameScreen(){
             horizontalArrangement = Arrangement.SpaceBetween
         ){
                 PlayerBar(userName = "Player 1")
-                ScoreBoard(player1Score = 15, player2Score = 60)
+                ScoreBoard(player1Score = 0, player2Score = 0)
                 OpponentBar(userName = "Player 2")
         }
         Divider()
 
-        var blocked by remember {
-            mutableStateOf(false)
+        var game =viewModel.game
+        var p by remember {
+            mutableStateOf(game.isMyTurn)
         }
-
+        var i by remember {
+            mutableStateOf(-1)
+        }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.5f)
-                .padding(20.dp, 40.dp,20.dp,40.dp)
+                .padding(20.dp, 40.dp, 20.dp, 40.dp)
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxHeight(0.3f)
                     .fillMaxWidth(),
             ) {
-                Cell(0.3f,false,blocked)
-                Cell(0.5f,false,blocked)
-                Cell(1f,false,blocked)
+                Cell(0.3f,0,game) {index: Int ->
+                    p=!p
+                    if (game.isMyTurn && game.grid[index].chooseBy==-1){
+                        game.makeMove(index)
+                        game.isMyTurn = false
+                        Log.d("l", "" + game.grid.toString())
+                    }
+                    if(i==index) game.grid[index].chooseBy=1
+                }
+                Cell(0.5f,1,game) {index: Int ->
+                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
+                        game.makeMove(index)
+                        game.isMyTurn = false
+                        Log.d("l", "" + game.grid.toString())
+                    }
+                    p=!p
+                }
+                Cell(1f,2,game) {index: Int ->
+                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
+                        game.makeMove(index)
+                        game.isMyTurn = false
+                        Log.d("l", "" + game.grid.toString())
+                    }
+                    p=!p
+                }
+
             }
             Row(
                 modifier = Modifier
                     .fillMaxHeight(0.5f)
                     .fillMaxWidth(),
             ) {
-                Cell(0.3f,false,blocked)
-                Cell(0.5f,false,blocked)
-                Cell(1f,false,blocked)
+                Cell(0.3f,3,game) {index: Int ->
+                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
+                        game.makeMove(index)
+                        game.isMyTurn = false
+                        Log.d("l", "" + game.grid.toString())
+                    }
+                    p=!p
+                }
+                Cell(0.5f,4,game) {index: Int ->
+                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
+                        game.makeMove(index)
+                        game.isMyTurn = false
+                        Log.d("l", "" + game.grid.toString())
+                    }
+                    p=!p
+                }
+                Cell(1f,5,game) {index: Int ->
+                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
+                        game.makeMove(index)
+                        game.isMyTurn = false
+                        Log.d("l", "" + game.grid.toString())
+                    }
+                    p=!p
+                }
             }
             Row(
                 modifier = Modifier
                     .fillMaxHeight()
                     .fillMaxWidth(),
             ) {
-                Cell(0.3f,false,blocked)
-                Cell(0.5f,false,blocked)
-                Cell(1f,false,blocked)
+                Cell(0.3f,6,game) {index: Int ->
+                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
+                        game.makeMove(index)
+                        game.isMyTurn = false
+                        Log.d("l", "" + game.grid.toString())
+                    }
+                    p=!p
+                }
+                Cell(0.5f,7,game) {index: Int ->
+                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
+                        game.makeMove(index)
+                        game.isMyTurn = false
+                        Log.d("l", "" + game.grid.toString())
+                    }
+                    p=!p
+                }
+                Cell(1f,8,game) {index: Int ->
+                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
+                        game.makeMove(index)
+                        game.isMyTurn = false
+                        Log.d("l", "" + game.grid.toString())
+                    }
+                    p=!p
+                }
             }
         }
         Divider()
@@ -86,9 +163,15 @@ fun GameScreen(){
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Player 1 won !!",
-            modifier = Modifier.padding(10.dp,20.dp)
-            )
+
+            if(!p){
+                if(!game.isMyTurn){
+                    i=game.chooseCell()
+                    p=!p
+                }
+
+            }
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
@@ -96,8 +179,8 @@ fun GameScreen(){
                     .clip(RoundedCornerShape(10.dp))
                     .background(MaterialTheme.colors.primary)
                     .clickable {
-                        blocked=true
-
+                               viewModel.restart()
+                        p=!p
                     },
                 Alignment.Center,
             ){

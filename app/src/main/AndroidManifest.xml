@@ -4,6 +4,7 @@
     package="com.example.tic_tac_toe">
 
     <application
+        android:name=".Tic_Tac_Toe_app"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
