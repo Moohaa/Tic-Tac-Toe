@@ -35,8 +35,7 @@ import com.example.tic_tac_toe.presentation.ViewModels.GameViewModel
 fun GameScreen(
     viewModel: GameViewModel = hiltViewModel()
 ){
-
-
+    var game =viewModel.game
     Column(
         modifier = Modifier.fillMaxSize(),
     ){
@@ -45,13 +44,12 @@ fun GameScreen(
 
             horizontalArrangement = Arrangement.SpaceBetween
         ){
-                PlayerBar(userName = "Player 1")
+                PlayerBar(userName = "Player 1",game)
                 ScoreBoard(player1Score = 0, player2Score = 0)
-                OpponentBar(userName = "Player 2")
+                OpponentBar(userName = "Player 2",game)
         }
         Divider()
 
-        var game =viewModel.game
         var p by remember {
             mutableStateOf(game.isMyTurn)
         }
@@ -70,28 +68,15 @@ fun GameScreen(
                     .fillMaxWidth(),
             ) {
                 Cell(0.3f,0,game) {index: Int ->
+                    ChooseCell(index,game)
                     p=!p
-                    if (game.isMyTurn && game.grid[index].chooseBy==-1){
-                        game.makeMove(index)
-                        game.isMyTurn = false
-                        Log.d("l", "" + game.grid.toString())
-                    }
-                    if(i==index) game.grid[index].chooseBy=1
                 }
                 Cell(0.5f,1,game) {index: Int ->
-                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
-                        game.makeMove(index)
-                        game.isMyTurn = false
-                        Log.d("l", "" + game.grid.toString())
-                    }
+                    ChooseCell(index,game)
                     p=!p
                 }
                 Cell(1f,2,game) {index: Int ->
-                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
-                        game.makeMove(index)
-                        game.isMyTurn = false
-                        Log.d("l", "" + game.grid.toString())
-                    }
+                    ChooseCell(index,game)
                     p=!p
                 }
 
@@ -102,27 +87,15 @@ fun GameScreen(
                     .fillMaxWidth(),
             ) {
                 Cell(0.3f,3,game) {index: Int ->
-                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
-                        game.makeMove(index)
-                        game.isMyTurn = false
-                        Log.d("l", "" + game.grid.toString())
-                    }
+                    ChooseCell(index,game)
                     p=!p
                 }
                 Cell(0.5f,4,game) {index: Int ->
-                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
-                        game.makeMove(index)
-                        game.isMyTurn = false
-                        Log.d("l", "" + game.grid.toString())
-                    }
+                    ChooseCell(index,game)
                     p=!p
                 }
                 Cell(1f,5,game) {index: Int ->
-                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
-                        game.makeMove(index)
-                        game.isMyTurn = false
-                        Log.d("l", "" + game.grid.toString())
-                    }
+                    ChooseCell(index,game)
                     p=!p
                 }
             }
@@ -131,28 +104,16 @@ fun GameScreen(
                     .fillMaxHeight()
                     .fillMaxWidth(),
             ) {
-                Cell(0.3f,6,game) {index: Int ->
-                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
-                        game.makeMove(index)
-                        game.isMyTurn = false
-                        Log.d("l", "" + game.grid.toString())
-                    }
+                Cell(0.3f,6,game){index: Int ->
+                    ChooseCell(index,game)
                     p=!p
                 }
                 Cell(0.5f,7,game) {index: Int ->
-                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
-                        game.makeMove(index)
-                        game.isMyTurn = false
-                        Log.d("l", "" + game.grid.toString())
-                    }
+                    ChooseCell(index,game)
                     p=!p
                 }
-                Cell(1f,8,game) {index: Int ->
-                    if (game.isMyTurn  && game.grid[index].chooseBy==-1){
-                        game.makeMove(index)
-                        game.isMyTurn = false
-                        Log.d("l", "" + game.grid.toString())
-                    }
+                Cell(1f,8,game){index: Int ->
+                    ChooseCell(index,game)
                     p=!p
                 }
             }
@@ -163,15 +124,13 @@ fun GameScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             if(!p){
                 if(!game.isMyTurn){
-                    i=game.chooseCell()
-                    p=!p
+                    game.chooseCell()
+                    game.isMyTurn=true
                 }
-
+                p=!p
             }
-
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
@@ -179,7 +138,7 @@ fun GameScreen(
                     .clip(RoundedCornerShape(10.dp))
                     .background(MaterialTheme.colors.primary)
                     .clickable {
-                               viewModel.restart()
+                        viewModel.restart()
                         p=!p
                     },
                 Alignment.Center,
@@ -210,4 +169,13 @@ fun GameScreen(
             }
         }
     }
+}
+
+fun ChooseCell(index: Int,game:OfflineGame){
+    if (game.isMyTurn && game.grid[index].chooseBy==-1){
+        Log.d("ee",index.toString())
+        game.makeMove(index)
+        game.isMyTurn=false
+    }
+
 }

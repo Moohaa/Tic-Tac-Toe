@@ -19,7 +19,6 @@ class GameViewModel :ViewModel() {
     fun restart(){
         for(item in game.grid){
             item.chooseBy=-1
-            game.isMyTurn=true
         }
     }
 }

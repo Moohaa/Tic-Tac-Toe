@@ -3,6 +3,10 @@ package com.example.tic_tac_toe.logic
 import android.util.Log
 import com.example.tic_tac_toe.domain.models.Cell
 import com.example.tic_tac_toe.domain.models.Game
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class OfflineGame(n: Int){
 
@@ -20,17 +24,18 @@ class OfflineGame(n: Int){
         isMyTurn=!isMyTurn
          m--
     }
-     fun chooseCell(): Int {
-        for(i in 0..9){
-            if(grid[i].chooseBy==-1){
-                grid[i].chooseBy=1
-                isMyTurn=!isMyTurn
-                m--
-                return i;
+     fun chooseCell() {
+        runBlocking {
+            delay(500L)
+            for(i in 0..9){
+                if(grid[i].chooseBy==-1){
+                    grid[i].chooseBy=1
+                    isMyTurn=!isMyTurn
+                    m--
+                    break
+                }
             }
         }
-        // nothing to choose from end the game
-        return -1;
     }
      fun evaluate(): Int {
         if(grid[0].chooseBy==0 && grid[1].chooseBy==0 && grid[2].chooseBy==0) return 0;

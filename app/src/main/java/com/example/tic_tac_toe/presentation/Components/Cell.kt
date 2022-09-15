@@ -34,6 +34,7 @@ fun Cell(
             .border(2.dp, MaterialTheme.colors.primary)
             .clickable {
                 change(index)
+                t=game.grid[index].chooseBy
             },
     ){
         t=game.grid[index].chooseBy

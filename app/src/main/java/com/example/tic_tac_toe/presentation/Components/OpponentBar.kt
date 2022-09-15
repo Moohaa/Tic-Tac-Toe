@@ -15,10 +15,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.tic_tac_toe.R
+import com.example.tic_tac_toe.logic.OfflineGame
 
 @Composable
 fun OpponentBar(
-    userName:String
+    userName:String,
+    game :OfflineGame
 ){
     Row(
         horizontalArrangement = Arrangement.Center,
@@ -31,7 +33,7 @@ fun OpponentBar(
             Text("")
         }
         Icon(
-            tint=Color.Red,
+            tint=if(!game.isMyTurn) Color.Green else Color.Red,
             modifier = Modifier
                 .padding(5.dp, 5.dp, 15.dp, 10.dp)
                 .clip(RoundedCornerShape(50))
