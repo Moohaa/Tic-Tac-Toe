@@ -58,6 +58,29 @@ fun Cell(
                 painter = painterResource(id= com.example.tic_tac_toe.R.drawable.ic_cross), contentDescription = "notification button",
             )
         }
+        if(t==2){
+            if(game.finished==1){
+                Icon(
+                    tint = Color.Red,
+                    modifier = Modifier
+                        .padding(5.dp, 5.dp, 15.dp, 10.dp)
+                        .align(Alignment.Center)
+                        .size(45.dp),
+                    painter = painterResource(id=com.example.tic_tac_toe.R.drawable.ic_shape), contentDescription = "notification button",
+                )
+
+            }else{
+                Icon(
+                    tint = Color.Red,
+                    modifier = Modifier
+                        .padding(5.dp, 5.dp, 15.dp, 10.dp)
+                        .align(Alignment.Center)
+                        .size(45.dp),
+                    painter = painterResource(id=com.example.tic_tac_toe.R.drawable.ic_cross), contentDescription = "notification button",
+                )
+            }
+
+        }
 
 
 

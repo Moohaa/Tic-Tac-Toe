@@ -57,7 +57,14 @@ class OfflineGame(n: Int){
              if (grid[a[0]].chooseBy == grid[a[1]].chooseBy && grid[a[1]].chooseBy == grid[a[2]].chooseBy && grid[a[0]].chooseBy != -1) {
                  if(grid[a[0]].chooseBy==0) myScore++;
                  else oppponentScore++;
-                 return grid[a[0]].chooseBy;
+                 
+                 var winer=grid[a[0]].chooseBy
+
+                 grid[a[0]].chooseBy=2
+                 grid[a[1]].chooseBy=2
+                 grid[a[2]].chooseBy=2
+
+                 return winer;
              }
          }
          return -1;
