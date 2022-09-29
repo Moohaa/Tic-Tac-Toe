@@ -44,18 +44,49 @@ fun GameScreen(
 
             horizontalArrangement = Arrangement.SpaceBetween
         ){
-                PlayerBar(userName = "Player 1",game)
-                ScoreBoard(player1Score = 0, player2Score = 0)
-                OpponentBar(userName = "Player 2",game)
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(
+                    tint =if(game.isMyTurn) Color.Green else Color.Red,
+                    modifier = Modifier
+                        .padding(15.dp, 5.dp, 5.dp, 10.dp)
+                        .size(45.dp)
+                        .clip(RoundedCornerShape(50))
+                    ,
+                    painter = painterResource(id= R.drawable.ic_baseline_account_circle_24), contentDescription = "notification button"
+                )
+                Column(){
+                    Text(text = "Me      ")
+                }
+            }
+            ScoreBoard(player1Score = game.myScore, player2Score = game.oppponentScore)
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(){
+                    Text(
+                        text = "Computer",
+                    )
+                }
+                Icon(
+                    tint=if(!game.isMyTurn) Color.Green else Color.Red,
+                    modifier = Modifier
+                        .padding(5.dp, 5.dp, 15.dp, 10.dp)
+                        .clip(RoundedCornerShape(50))
+                        .size(45.dp),
+                    painter = painterResource(id= R.drawable.ic_ai_brain_management), contentDescription = "notification button"
+                )
+            }
         }
         Divider()
 
         var p by remember {
-            mutableStateOf(game.isMyTurn)
+            mutableStateOf(true)
         }
-        var i by remember {
-            mutableStateOf(-1)
-        }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -68,16 +99,13 @@ fun GameScreen(
                     .fillMaxWidth(),
             ) {
                 Cell(0.3f,0,game) {index: Int ->
-                    ChooseCell(index,game)
-                    p=!p
+                    viewModel.ChooseCell(index,{ p=false })
                 }
                 Cell(0.5f,1,game) {index: Int ->
-                    ChooseCell(index,game)
-                    p=!p
+                    viewModel.ChooseCell(index,{ p=false })
                 }
                 Cell(1f,2,game) {index: Int ->
-                    ChooseCell(index,game)
-                    p=!p
+                    viewModel.ChooseCell(index,{ p=false })
                 }
 
             }
@@ -87,16 +115,13 @@ fun GameScreen(
                     .fillMaxWidth(),
             ) {
                 Cell(0.3f,3,game) {index: Int ->
-                    ChooseCell(index,game)
-                    p=!p
+                    viewModel.ChooseCell(index,{ p=false })
                 }
                 Cell(0.5f,4,game) {index: Int ->
-                    ChooseCell(index,game)
-                    p=!p
+                    viewModel.ChooseCell(index,{ p=false })
                 }
                 Cell(1f,5,game) {index: Int ->
-                    ChooseCell(index,game)
-                    p=!p
+                    viewModel.ChooseCell(index,{ p=false })
                 }
             }
             Row(
@@ -105,16 +130,13 @@ fun GameScreen(
                     .fillMaxWidth(),
             ) {
                 Cell(0.3f,6,game){index: Int ->
-                    ChooseCell(index,game)
-                    p=!p
+                    viewModel.ChooseCell(index,{ p=false })
                 }
                 Cell(0.5f,7,game) {index: Int ->
-                    ChooseCell(index,game)
-                    p=!p
+                    viewModel.ChooseCell(index,{ p=false })
                 }
                 Cell(1f,8,game){index: Int ->
-                    ChooseCell(index,game)
-                    p=!p
+                    viewModel.ChooseCell(index,{ p=false })
                 }
             }
         }
@@ -124,58 +146,61 @@ fun GameScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            if(!game.isMyTurn){
+                game.chooseCell()
+                game.isMyTurn=true
+            }
             if(!p){
-                if(!game.isMyTurn){
-                    game.chooseCell()
-                    game.isMyTurn=true
+                p=true
+            }
+            if(game.finished!=-1 || game.cells_left<=0){
+                if(game.finished==-1){
+                    Text(text = "draw!")
+                }else{
+                    var winer="Computer"
+                    if(game.finished==0) winer ="you "
+                    Text(text = "$winer  won!")
                 }
-                p=!p
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.7f)
+                        .padding(20.dp, 5.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(MaterialTheme.colors.primary)
+                        .clickable {
+                            viewModel.restart()
+                            p = !p
+                        },
+                    Alignment.Center,
+                ){
+                    Text(
+                        text = "Play again",
+                        modifier = Modifier.padding(20.dp),
+                        textAlign = TextAlign.Center,
+                        color = Color.White
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.7f)
+                        .padding(20.dp, 5.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(MaterialTheme.colors.primary)
+                        .clickable {
+                        },
+                    Alignment.Center,
+                ){
+                    Text(
+                        text = "Finish",
+                        modifier = Modifier.padding(20.dp),
+                        textAlign = TextAlign.Center,
+                        color = Color.White
+                    )
+                }
             }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(0.7f)
-                    .padding(20.dp, 5.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(MaterialTheme.colors.primary)
-                    .clickable {
-                        viewModel.restart()
-                        p=!p
-                    },
-                Alignment.Center,
-            ){
-                Text(
-                    text = "Play again",
-                    modifier = Modifier.padding(20.dp),
-                    textAlign = TextAlign.Center,
-                    color = Color.White
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(0.7f)
-                    .padding(20.dp, 5.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(MaterialTheme.colors.primary)
-                    .clickable {
-                    },
-                Alignment.Center,
-            ){
-                Text(
-                    text = "Finish",
-                    modifier = Modifier.padding(20.dp),
-                    textAlign = TextAlign.Center,
-                    color = Color.White
-                )
-            }
+
         }
     }
 }
 
-fun ChooseCell(index: Int,game:OfflineGame){
-    if (game.isMyTurn && game.grid[index].chooseBy==-1){
-        Log.d("ee",index.toString())
-        game.makeMove(index)
-        game.isMyTurn=false
-    }
-
-}

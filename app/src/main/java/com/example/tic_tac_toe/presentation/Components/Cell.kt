@@ -45,17 +45,17 @@ fun Cell(
                     .padding(5.dp, 5.dp, 15.dp, 10.dp)
                     .align(Alignment.Center)
                     .size(45.dp),
-                painter = painterResource(id= com.example.tic_tac_toe.R.drawable.ic_baseline_account_circle_24), contentDescription = "notification button",
+                painter = painterResource(id= com.example.tic_tac_toe.R.drawable.ic_shape), contentDescription = "notification button",
             )
         }
         if(t==0){
             Icon(
-                tint = Color.Red,
+                tint = Color.Black,
                 modifier = Modifier
                     .padding(5.dp, 5.dp, 15.dp, 10.dp)
                     .align(Alignment.Center)
                     .size(45.dp),
-                painter = painterResource(id= com.example.tic_tac_toe.R.drawable.ic_baseline_account_circle_24), contentDescription = "notification button",
+                painter = painterResource(id= com.example.tic_tac_toe.R.drawable.ic_cross), contentDescription = "notification button",
             )
         }
 

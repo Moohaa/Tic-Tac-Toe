@@ -10,8 +10,8 @@ import kotlinx.coroutines.runBlocking
 
 class OfflineGame(n: Int){
 
-    var m=9
-
+    var cells_left=9
+    var finished=-1
     var myScore:Int =0
     var oppponentScore:Int =0
     var isMyTurn =true
@@ -22,32 +22,44 @@ class OfflineGame(n: Int){
      fun makeMove(i:Int) {
         grid[i].chooseBy=0
         isMyTurn=!isMyTurn
-         m--
+         cells_left--;
+        finished=evaluate()
     }
      fun chooseCell() {
-        runBlocking {
-            delay(500L)
-            for(i in 0..9){
-                if(grid[i].chooseBy==-1){
-                    grid[i].chooseBy=1
-                    isMyTurn=!isMyTurn
-                    m--
-                    break
-                }
-            }
-        }
+         if(finished==-1){
+             runBlocking {
+                 delay(500L)
+                 for(i in 0..9){
+                     if(grid[i].chooseBy==-1){
+                         grid[i].chooseBy=1
+                         isMyTurn=!isMyTurn
+                         cells_left--;
+                         finished=evaluate()
+                         break
+                     }
+                 }
+             }
+         }
+
     }
      fun evaluate(): Int {
-        if(grid[0].chooseBy==0 && grid[1].chooseBy==0 && grid[2].chooseBy==0) return 0;
-        if(grid[3].chooseBy==1 && grid[4].chooseBy==1 && grid[5].chooseBy==1) return 1;
-        // no one won
-        return -1
-    }
-
-     fun isEnded(): Boolean {
-        for(i in 0..9){
-            if(grid[i].chooseBy==-1) return false
-        }
-        return true
-    }
+         val m = arrayOf(
+             arrayOf(0, 1, 2),
+             arrayOf(3, 4, 5),
+             arrayOf(6, 7, 8),
+             arrayOf(0, 3, 6),
+             arrayOf(1, 4, 7),
+             arrayOf(2, 5, 8),
+             arrayOf(0, 4, 8),
+             arrayOf(2, 4, 6)
+         )
+         for (a in m) {
+             if (grid[a[0]].chooseBy == grid[a[1]].chooseBy && grid[a[1]].chooseBy == grid[a[2]].chooseBy && grid[a[0]].chooseBy != -1) {
+                 if(grid[a[0]].chooseBy==0) myScore++;
+                 else oppponentScore++;
+                 return grid[a[0]].chooseBy;
+             }
+         }
+         return -1;
+     }
 }

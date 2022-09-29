@@ -16,7 +16,17 @@ class GameViewModel :ViewModel() {
             }
             return a
         }
+    fun ChooseCell(index: Int,update :()->Unit){
+        if (game.isMyTurn && game.grid[index].chooseBy==-1){
+            game.makeMove(index)
+            game.isMyTurn=false
+            update()
+        }
+
+    }
     fun restart(){
+        game.finished=-1
+        game.cells_left=9
         for(item in game.grid){
             item.chooseBy=-1
         }
