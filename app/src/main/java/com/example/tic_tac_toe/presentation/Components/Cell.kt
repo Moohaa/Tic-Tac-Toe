@@ -61,7 +61,7 @@ fun Cell(
         if(t==2){
             if(game.finished==1){
                 Icon(
-                    tint = Color.Red,
+                    tint = Color.Magenta,
                     modifier = Modifier
                         .padding(5.dp, 5.dp, 15.dp, 10.dp)
                         .align(Alignment.Center)
@@ -71,7 +71,7 @@ fun Cell(
 
             }else{
                 Icon(
-                    tint = Color.Red,
+                    tint = Color.Magenta,
                     modifier = Modifier
                         .padding(5.dp, 5.dp, 15.dp, 10.dp)
                         .align(Alignment.Center)

@@ -7,4 +7,6 @@ sealed class Screen(val route :String){
     object SignUpScreen : Screen("signUp")
     object SplashScreen : Screen("splash")
     object InviteOpponent : Screen("inviteOpponent")
+    object GetUserName : Screen("getUserName")
+    object OnlineGameScreen : Screen("onlineGameScreen")
 }

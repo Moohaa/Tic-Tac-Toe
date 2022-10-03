@@ -36,6 +36,8 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.LoginScreen.route){ Login(navController = navController)}
                         composable(Screen.SignUpScreen.route){ SignUp(navController = navController) }
                         composable(Screen.InviteOpponent.route){ InviteOpponentScreen(navController=navController) }
+                        composable(Screen.GetUserName.route){ GetUserName(navController=navController) }
+                        composable(Screen.OnlineGameScreen.route){ OnlineGame() }
                     }
                 }
             }

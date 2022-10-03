@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Tic-Tac-Toe/app/src/main/res/drawable/ic_ai_brain_management.xml" value="0.1345" />
+        <entry key="..\:/Tic-Tac-Toe/app/src/main/res/drawable/ic_computer_science.xml" value="0.1345" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8 (13)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

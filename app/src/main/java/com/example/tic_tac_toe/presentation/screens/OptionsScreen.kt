@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,8 +41,15 @@ fun OptionsScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Row {
+                Icon(
+                    modifier = Modifier.padding(40.dp,70.dp),
+                    tint = MaterialTheme.colors.primary,
+                    painter = painterResource(id= R.drawable.ic_tic_tac_toe), contentDescription = "notification button"
+                )
+            }
             OptionCard("Play Online", navigate = {
-                navController.navigate(Screen.LoginScreen.route)
+                navController.navigate(Screen.GetUserName.route)
             })
             OptionCard("Play offline",
                 navigate = {

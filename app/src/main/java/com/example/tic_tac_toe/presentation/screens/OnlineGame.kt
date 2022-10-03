@@ -1,8 +1,6 @@
 package com.example.tic_tac_toe.presentation.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,16 +13,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tic_tac_toe.R
-import com.example.tic_tac_toe.logic.OfflineGame
 import com.example.tic_tac_toe.presentation.Components.Cell
 import com.example.tic_tac_toe.presentation.Components.OpponentBar
 import com.example.tic_tac_toe.presentation.Components.PlayerBar
@@ -32,7 +25,7 @@ import com.example.tic_tac_toe.presentation.Components.ScoreBoard
 import com.example.tic_tac_toe.presentation.ViewModels.GameViewModel
 
 @Composable
-fun GameScreen(
+fun OnlineGame(
     viewModel: GameViewModel = hiltViewModel()
 ){
     var game =viewModel.game
@@ -43,43 +36,10 @@ fun GameScreen(
             modifier =Modifier.fillMaxWidth(),
 
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Icon(
-                    tint =if(game.isMyTurn) Color.Green else Color.Red,
-                    modifier = Modifier
-                        .padding(15.dp, 5.dp, 5.dp, 10.dp)
-                        .clip(RoundedCornerShape(50))
-                        .size(45.dp)
-                    ,
-                    painter = painterResource(id= R.drawable.ic_baseline_account_circle_24), contentDescription = "notification button"
-                )
-                Column(){
-                    Text(text = "Me      ")
-                }
-            }
-            ScoreBoard(player1Score = game.myScore, player2Score = game.oppponentScore)
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(){
-                    Text(
-                        text = "Computer",
-                    )
-                }
-                Icon(
-                    tint=if(!game.isMyTurn) Color.Green else Color.Red,
-                    modifier = Modifier
-                        .padding(5.dp, 5.dp, 15.dp, 10.dp)
-                        .clip(RoundedCornerShape(50))
-                        .size(45.dp),
-                    painter = painterResource(id= R.drawable.ic_baseline_account_circle_24), contentDescription = "notification button"
-                )
-            }
+        ) {
+            PlayerBar(userName = "Player 1", game = game)
+            ScoreBoard(player1Score = 10, player2Score = 9)
+            OpponentBar(userName = "Player 2", game = game)
         }
         Divider()
 
@@ -155,12 +115,11 @@ fun GameScreen(
             }
             if(game.finished!=-1 || game.cells_left<=0){
                 if(game.finished==-1){
-                    Text(text = "Draw!",
-                    modifier=Modifier.padding(20.dp))
+                    Text(text = "draw!")
                 }else{
                     var winer="Computer"
-                    if(game.finished==0) winer ="You "
-                    Text(text = "$winer  won!", Modifier.padding(20.dp))
+                    if(game.finished==0) winer ="you "
+                    Text(text = "$winer  won!")
                 }
 
                 Box(

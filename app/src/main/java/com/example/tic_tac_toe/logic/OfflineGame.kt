@@ -18,7 +18,6 @@ class OfflineGame(n: Int){
     var grid= listOf<Cell>(Cell(0,-1),Cell(1,-1),Cell(2,-1),Cell(3,-1),Cell(4,-1)
     ,Cell(5,-1),Cell(6,-1),Cell(7,-1),Cell(8,-1),Cell(9,-1))
 
-
      fun makeMove(i:Int) {
         grid[i].chooseBy=0
         isMyTurn=!isMyTurn

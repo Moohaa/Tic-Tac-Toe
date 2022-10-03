@@ -43,7 +43,7 @@ fun InviteOpponentScreen(
         ){
             items(onlineUsers){ c->
                 OnlineUserCard(c , navigateTogame = {
-                    navController.navigate(Screen.GameScreen.route)
+                    navController.navigate(Screen.OnlineGameScreen.route)
                 })
             }
         }
