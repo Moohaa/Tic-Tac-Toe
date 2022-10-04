@@ -34,7 +34,7 @@ fun InviteOpponentScreen(
                     painter = painterResource(id= R.drawable.ic_baseline_notifications_none_24 ), contentDescription = "notification button")
             }
         }
-        val onlineUsers= listOf<String>("moha","boha","noha","kop","hom","moha","boha","noha","kop","hom")
+        val onlineUsers= listOf<String>("Player 2","Mdg12","hhb@op")
 
         Divider()
 

@@ -46,6 +46,5 @@ fun OnlineUserCard(
             Text(text = "Invite")
         }
     }
-    Divider()
-
+    Divider(modifier = Modifier.padding(20.dp,0.dp))
 }

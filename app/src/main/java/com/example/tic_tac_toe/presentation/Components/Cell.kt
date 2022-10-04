@@ -2,6 +2,7 @@ package com.example.tic_tac_toe.presentation.Components
 
 import android.text.BoringLayout
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -32,9 +33,13 @@ fun Cell(
             .fillMaxWidth(fraction)
             .fillMaxHeight()
             .border(2.dp, MaterialTheme.colors.primary)
+            .background(if(t==2) MaterialTheme.colors.secondary else Color.Transparent)
             .clickable {
-                change(index)
-                t=game.grid[index].chooseBy
+                if(game.finished==-1){
+                    change(index)
+                    t=game.grid[index].chooseBy
+                }
+
             },
     ){
         t=game.grid[index].chooseBy
@@ -61,7 +66,6 @@ fun Cell(
         if(t==2){
             if(game.finished==1){
                 Icon(
-                    tint = Color.Magenta,
                     modifier = Modifier
                         .padding(5.dp, 5.dp, 15.dp, 10.dp)
                         .align(Alignment.Center)
@@ -71,7 +75,6 @@ fun Cell(
 
             }else{
                 Icon(
-                    tint = Color.Magenta,
                     modifier = Modifier
                         .padding(5.dp, 5.dp, 15.dp, 10.dp)
                         .align(Alignment.Center)

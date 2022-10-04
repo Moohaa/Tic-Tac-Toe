@@ -39,24 +39,22 @@ fun GetUserName(navController: NavController) {
         Spacer(modifier = Modifier.height(20.dp))
         TextField(
             label = { Text(text = "Username") },
+            modifier =Modifier.fillMaxWidth(),
             value = username.value,
-            onValueChange = { username.value = it })
-
+            onValueChange = { username.value = it }
+        )
         Spacer(modifier = Modifier.height(20.dp))
-
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement =Arrangement.End) {
             Button(
                 onClick = {
                     navController.navigate(Screen.InviteOpponent.route)
                 },
-                shape = RoundedCornerShape(50.dp),
+                shape = RoundedCornerShape(20.dp),
                 modifier = Modifier
-                    .fillMaxWidth()
                     .height(50.dp)
             ) {
-                Text(text = "Next")
+                Text(text = "Next", modifier = Modifier.padding(20.dp,2.dp))
             }
         }
     }

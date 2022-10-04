@@ -82,7 +82,6 @@ fun GameScreen(
             }
         }
         Divider()
-
         var p by remember {
             mutableStateOf(true)
         }

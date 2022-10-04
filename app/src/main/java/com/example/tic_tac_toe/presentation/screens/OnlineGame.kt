@@ -37,8 +37,8 @@ fun OnlineGame(
 
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            PlayerBar(userName = "Player 1", game = game)
-            ScoreBoard(player1Score = 10, player2Score = 9)
+            PlayerBar(userName = "Me", game = game)
+            ScoreBoard(player1Score = game.myScore, player2Score = game.oppponentScore)
             OpponentBar(userName = "Player 2", game = game)
         }
         Divider()
@@ -115,11 +115,13 @@ fun OnlineGame(
             }
             if(game.finished!=-1 || game.cells_left<=0){
                 if(game.finished==-1){
-                    Text(text = "draw!")
+                    Text(text = "Draw!",
+                        modifier=Modifier.padding(20.dp))
                 }else{
-                    var winer="Computer"
-                    if(game.finished==0) winer ="you "
-                    Text(text = "$winer  won!")
+
+                    var message="Lose"
+                    if(game.finished==0) message ="Won"
+                    Text(text = "You $message !", Modifier.padding(20.dp))
                 }
 
                 Box(
